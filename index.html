@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Siam AI Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:Poppins;
+background:#0a0f1c;
+color:white;
+text-align:center;
+}
+
+/* HEADER */
+header{
+padding:15px;
+background:#020617;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+header a{
+color:white;
+margin:5px;
+text-decoration:none;
+}
+
+/* HERO */
+.hero{
+padding:80px 20px;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.hero img{
+width:120px;
+height:120px;
+border-radius:50%;
+border:3px solid #38bdf8;
+box-shadow:0 0 20px #38bdf8;
+object-fit:cover;
+}
+
+.hero span{color:#38bdf8;}
+
+/* SECTIONS */
+section{
+padding:50px 20px;
+}
+
+/* ML BOX */
+.boxes{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.box{
+background:#1e293b;
+padding:15px;
+border-radius:10px;
+width:100px;
+border:1px solid #38bdf8;
+}
+
+/* CARD */
+.card{
+background:#1e293b;
+margin:10px auto;
+padding:15px;
+width:80%;
+border-radius:10px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+/* CHAT */
+.chatbox{
+width:90%;
+max-width:320px;
+margin:auto;
+background:#1e293b;
+padding:10px;
+border-radius:10px;
+}
+
+#chat{
+height:120px;
+overflow-y:auto;
+background:#0f172a;
+padding:10px;
+margin-bottom:10px;
+}
+
+/* INPUT */
+input{
+width:65%;
+padding:6px;
+border:none;
+outline:none;
+}
+
+/* BUTTON */
+button{
+padding:6px 10px;
+background:#38bdf8;
+border:none;
+cursor:pointer;
+}
+
+/* SOCIAL */
+.social a{
+display:inline-block;
+margin:5px;
+padding:8px 12px;
+background:#1e293b;
+color:white;
+text-decoration:none;
+border-radius:6px;
+transition:0.3s;
+}
+
+.social a:hover{
+background:#38bdf8;
+color:black;
+}
+
+/* CONTACT INFO */
+.contact-info{
+margin-top:10px;
+}
+
+/* FOOTER */
+footer{
+padding:15px;
+background:#020617;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+header{
+flex-direction:column;
+text-align:center;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h3>Siam.Cricketer</h3>
+
+<div>
+<a href="#about">About</a>
+<a href="#ml">ML</a>
+<a href="#ai">AI</a>
+<a href="#contact">Contact</a>
+</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+
+<img src="eid 1.jpeg" alt="profile">
+<h1>Hi, I'm <span>Md Siam Ahmmed</span></h1>
+<p>Future AI Engineer | Data Scientist | YouTuber</p>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<p>I am passionate about AI, Machine Learning and Coding.</p>
+</section>
+
+<!-- ML -->
+<section id="ml">
+<h2>ML Dashboard</h2>
+
+<div class="boxes">
+<div class="box">Accuracy<br><b>92%</b></div>
+<div class="box">Models<br><b>CNN</b></div>
+<div class="box">Data<br><b>10+</b></div>
+</div>
+</section>
+
+<!-- AI CHAT -->
+<section id="ai">
+<h2>AI Chatbot</h2>
+
+<div class="chatbox">
+<div id="chat"></div>
+
+<input id="input" placeholder="Ask..." />
+<button onclick="send()">Send</button>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Connect & Contact</h2>
+
+<div class="contact-info">
+<p>📧 Email: mdsiamahmmedloselovestroy@gmail.com</p>
+<p>📱 Phone: 01644171751</p>
+</div>
+
+<div class="social">
+<a href="https://facebook.com/siam.ahmed.772527" target="_blank" rel="noopener noreferrer">Facebook</a>
+<a href="https://instagram.com/siamlearninghub" target="_blank" rel="noopener noreferrer">Instagram</a>
+<a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer">GitHub</a>
+<a href="https://youtube.com/@SiamLearningHub" target="_blank" rel="noopener noreferrer">YouTube</a>
+</div>
+</section>
+
+<footer>
+© 2026 Siam Portfolio
+</footer>
+
+<script>
+function send(){
+let input=document.getElementById("input").value;
+let chat=document.getElementById("chat");
+
+let reply="🤖 I am learning AI...";
+
+let msg=input.toLowerCase();
+
+if(msg.includes("hello")) reply="Hello 👋 Welcome!";
+else if(msg.includes("hi")) reply="Hi there 😎";
+else if(msg.includes("ai")) reply="AI will change the world 🌍";
+else if(msg.includes("ml")) reply="Machine Learning is future 🔥";
+else if(msg.includes("data")) reply="Data is powerful 📊";
+
+chat.innerHTML+="<p><b>You:</b> "+input+"</p>";
+chat.innerHTML+="<p><b>Bot:</b> "+reply+"</p>";
+
+document.getElementById("input").value="";
+chat.scrollTop=chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
