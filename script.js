@@ -6,7 +6,7 @@
 // ⚠️ Client-side credentials. This blocks casual visitors but is
 // visible to anyone who reads this file — do not use for real secrets.
 const SITE_USERNAME = "siam";
-const SITE_PASSWORD = "siam2026";
+const SITE_PASSWORD = "siam0087";
 
 /* =========================================================
    LOCK SCREEN
