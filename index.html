@@ -1,679 +1,1336 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Md Siam Ahmmed — AI Engineer & Data Scientist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeWithSiam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="tab.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="bg-grain" aria-hidden="true"></div>
+    <!-- LOCK SCREEN -->
+    <div id="lockscreen">
+      <div class="lock-bg-image"></div>
+      <div class="lock-bg-gradient"></div>
+      <canvas id="lockParticles"></canvas>
+      <div class="lock-bg-grid"></div>
 
-  <!-- LOCK SCREEN -->
-  <div id="lockscreen">
-    <div class="lock-bg-image"></div>
-    <div class="lock-bg-gradient"></div>
-    <canvas id="lockParticles"></canvas>
-    <div class="lock-bg-grid"></div>
-
-    <div class="lock-card">
-      <div class="lock-node">
-        <div class="node-ring r1"></div>
-        <div class="node-ring r2"></div>
-        <div class="node-ring r3"></div>
-        <div class="node-core"></div>
-      </div>
-      <h2>Welcome Back</h2>
-      <p>Sign in to view this portfolio.</p>
-
-      <div class="lock-field">
-        <label for="lockUser">Username</label>
-        <input type="text" id="lockUser" placeholder="Enter username" autocomplete="off" />
-      </div>
-      <div class="lock-field">
-        <label for="lockInput">Password</label>
-        <input type="password" id="lockInput" placeholder="Enter password" autocomplete="off" />
-      </div>
-
-      <label class="lock-remember">
-        <input type="checkbox" id="lockRemember" checked />
-        <span>Remember me</span>
-      </label>
-
-      <button id="lockBtn">Login</button>
-
-      <p class="lock-error" id="lockError">Incorrect username or password. Try again.</p>
-      <p class="lock-hint">Don't have access? <a href="https://wa.me/8801644171751?text=Hi%20Siam!%20Could%20I%20get%20the%20portfolio%20login%20details%3F" target="_blank" rel="noopener noreferrer">Ask Siam on WhatsApp</a></p>
-    </div>
-  </div>
-
-  <div id="siteRoot">
-
-  <canvas id="particles"></canvas>
-
-  <!-- HEADER -->
-  <header id="header">
-    <div class="logo">Siam<span class="accent">.</span>dev</div>
-    <nav id="nav">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#ml">ML Stats</a>
-      <a href="#projects">Projects</a>
-      <a href="#course">Free Course</a>
-      <a href="#chatbot">AI Chat</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">&#9776;</button>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-content reveal">
-
-      <div class="hero-3d-stage" id="hero3d">
-        <div class="orbit-ring orbit-1"></div>
-        <div class="orbit-ring orbit-2"></div>
-        <div class="orbit-ring orbit-3"></div>
-        <div class="profile-wrap">
-          <img src="profile-siam.jpeg" alt="Md Siam Ahmmed" class="profile-img" />
-          <div class="profile-ring"></div>
-          <div class="profile-glow"></div>
+      <div class="lock-split">
+        <div class="lock-photo-side">
+          <img src="py.jpg" alt="Md Siam Ahmmed" />
+          <div class="lock-photo-overlay">
+            <span class="lock-photo-tag">Siam.dev</span>
+            <p>Private portfolio &amp; course access</p>
+          </div>
         </div>
-        <span class="orbit-chip chip-1">Python</span>
-        <span class="orbit-chip chip-2">TensorFlow</span>
-        <span class="orbit-chip chip-3">PyTorch</span>
-        <span class="orbit-chip chip-4">OpenCV</span>
-      </div>
 
-      <h1>Md Siam Ahmmed</h1>
-      <div class="typed-wrap">
-        <span id="typed-text"></span><span class="cursor">|</span>
-      </div>
-      <p class="hero-sub">Building intelligent systems with Python, ML &amp; AI</p>
-      <div class="hero-btns">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-outline">Contact Me</a>
+        <div class="lock-card">
+        <h2>Welcome Back</h2>
+        <p>Sign in to view this portfolio.</p>
+
+        <div class="auth-switch" role="tablist" aria-label="Authentication mode">
+          <button class="auth-tab active" id="showLoginTab" type="button">
+            Sign In
+          </button>
+          <button class="auth-tab" id="showRegisterTab" type="button">
+            Create Account
+          </button>
+        </div>
+
+        <div id="loginFormPanel" class="auth-panel">
+          <div class="lock-field">
+            <label for="lockUser">Email or Username</label>
+            <input
+              type="text"
+              id="lockUser"
+              placeholder="Enter your email or username"
+              autocomplete="email"
+            />
+          </div>
+          <div class="lock-field">
+            <label for="lockInput">Password</label>
+            <input
+              type="password"
+              id="lockInput"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <label class="lock-remember">
+            <input type="checkbox" id="lockRemember" checked />
+            <span>Remember me</span>
+          </label>
+
+          <button id="lockBtn" type="button">Sign In</button>
+        </div>
+
+        <div id="registerFormPanel" class="auth-panel hidden">
+          <div class="lock-field">
+            <label for="registerName">Full Name</label>
+            <input
+              type="text"
+              id="registerName"
+              placeholder="Enter your full name"
+              autocomplete="name"
+            />
+          </div>
+          <div class="lock-field">
+            <label for="registerEmail">Email</label>
+            <input
+              type="email"
+              id="registerEmail"
+              placeholder="Enter your email"
+              autocomplete="email"
+            />
+          </div>
+          <div class="lock-field">
+            <label for="registerPhone">Phone Number</label>
+            <input
+              type="tel"
+              id="registerPhone"
+              placeholder="Enter your phone number"
+              autocomplete="tel"
+            />
+          </div>
+          <div class="lock-field">
+            <label for="registerPass">Password</label>
+            <input
+              type="password"
+              id="registerPass"
+              placeholder="Create a password"
+              autocomplete="new-password"
+            />
+          </div>
+          <div class="lock-field">
+            <label for="registerConfirm">Confirm Password</label>
+            <input
+              type="password"
+              id="registerConfirm"
+              placeholder="Repeat your password"
+              autocomplete="new-password"
+            />
+          </div>
+          <button id="registerBtn" type="button">Send OTP</button>
+        </div>
+
+        <div id="otpPanel" class="auth-panel hidden">
+          <div class="lock-field">
+            <label for="otpInput">Enter OTP</label>
+            <input
+              type="text"
+              id="otpInput"
+              inputmode="numeric"
+              placeholder="Enter 6-digit OTP"
+              autocomplete="one-time-code"
+            />
+          </div>
+          <button id="verifyOtpBtn" type="button">Verify OTP</button>
+          <p class="otp-help">We sent a 6-digit code to your email/phone.</p>
+        </div>
+
+        <p class="auth-status" id="authStatus" role="status"></p>
+
+        <div class="divider">
+          <span>OR</span>
+        </div>
+
+        <div class="social-login">
+          <button class="social-btn google" id="googleLogin" type="button" data-provider="Google">
+            <i class="fa-brands fa-google"></i>
+            Continue with Google
+          </button>
+
+          <button class="social-btn github" type="button" data-provider="GitHub">
+            <i class="fa-brands fa-github"></i>
+            Continue with GitHub
+          </button>
+
+          <button class="social-btn microsoft" type="button" data-provider="Microsoft">
+            <i class="fa-brands fa-microsoft"></i>
+            Continue with Microsoft
+          </button>
+
+          <button class="social-btn facebook" type="button" data-provider="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+            Continue with Facebook
+          </button>
+        </div>
+
+        <p class="register" id="registerHint">
+          Don't have an account?
+          <button type="button" class="text-link" id="showRegisterBtn">
+            Create Account
+          </button>
+        </p>
+
+        <p class="register register-alt hidden" id="loginHint">
+          Already have an account?
+          <button type="button" class="text-link" id="showLoginBtn">
+            Sign In
+          </button>
+        </p>
+
+        <p class="lock-error" id="lockError">
+          Incorrect username or password. Try again.
+        </p>
+
+        <p class="lock-hint">
+          Don't have access?
+          <a
+            href="https://wa.me/8801644171751?text=Hi%20Siam!%20Could%20I%20get%20the%20portfolio%20login%20details%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ask Siam on WhatsApp
+          </a>
+        </p>
+        </div>
       </div>
     </div>
-    <div class="scroll-cue"><span></span></div>
-  </section>
 
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="container reveal">
-      <h2 class="section-title">About <span class="accent">Me</span></h2>
-      <div class="about-grid">
-        <div class="about-text">
-          <p>
-            I'm a passionate <strong>AI Engineer</strong> and <strong>Data Scientist</strong> with a deep love for Python. I build intelligent applications — from image classifiers and NLP models to real-time data pipelines.
+    <div id="siteRoot">
+      <canvas id="particles"></canvas>
+
+      <!-- HEADER -->
+      <header id="header">
+        <div class="logo">Siam<span class="accent">.</span>dev</div>
+        <nav id="nav">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#ml">ML Stats</a>
+          <a href="#projects">Projects</a>
+          <a href="#course">Free Course</a>
+          <a href="#chatbot">AI Chat</a>
+          <a href="#contact">Contact</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+          &#9776;
+        </button>
+      </header>
+
+      <!-- HERO -->
+      <section class="hero" id="home">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-inner">
+          <div class="hero-content reveal">
+            <p class="hero-eyebrow">Narsingdi Government College &middot; Class 12,Science Background</p>
+            <h1>Md Siam Ahmmed</h1>
+            <div class="typed-wrap">
+              <span class="typed-prefix">&gt;</span>
+              <span id="typed-text"></span><span class="cursor">_</span>
+            </div>
+            <p class="hero-sub">
+              18-year-old ML tinkerer from Bangladesh. I train models, break
+              them, fix them, then teach the whole thing on YouTube.
+            </p>
+            <div class="hero-btns">
+              <a href="#projects" class="btn btn-primary">View Projects</a>
+              <a href="#course" class="btn btn-outline" id="continueLearningHeroBtn">Continue Learning</a>
+              <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+          </div>
+
+          <div class="hero-ide" id="hero3d">
+            <div class="ide-window">
+              <div class="ide-titlebar">
+                <span class="ide-dot d-red"></span>
+                <span class="ide-dot d-yellow"></span>
+                <span class="ide-dot d-green"></span>
+                <span class="ide-filename">siam.py</span>
+              </div>
+              <div class="ide-body">
+                <pre class="ide-code"><span class="ln">1</span><span class="tok-kw">class</span> <span class="tok-class">Siam</span><span class="tok-punc">:</span>
+<span class="ln">2</span>    <span class="tok-kw">def</span> <span class="tok-fn">__init__</span><span class="tok-punc">(</span><span class="tok-self">self</span><span class="tok-punc">):</span>
+<span class="ln">3</span>        <span class="tok-self">self</span>.role <span class="tok-punc">=</span> <span class="tok-str">"AI Engineer,And Data Scientist"</span>
+<span class="ln">4</span>        <span class="tok-self">self</span>.stack <span class="tok-punc">=</span> <span class="tok-punc">[</span><span class="tok-str">"Python"</span><span class="tok-punc">,</span> <span class="tok-str">"TensorFlow"</span><span class="tok-punc">,</span>
+<span class="ln"></span>                      <span class="tok-str">"PyTorch"</span><span class="tok-punc">,</span> <span class="tok-str">"OpenCV"</span><span class="tok-punc">]</span>
+<span class="ln">5</span>        <span class="tok-self">self</span>.based_in <span class="tok-punc">=</span> <span class="tok-str">"Bancharampur,Brahmanbaira"<Bangladesh"</span>
+
+<span class="ln">6</span>    <span class="tok-kw">def</span> <span class="tok-fn">teach</span><span class="tok-punc">(</span><span class="tok-self">self</span><span class="tok-punc">):</span>
+<span class="ln">7</span>        <span class="tok-kw">return</span> <span class="tok-str">"free ML tutorials on YouTube"</span></pre>
+              </div>
+              <div class="ide-webcam">
+                <img src="profile-siam.jpeg" alt="Md Siam Ahmmed" class="profile-img" />
+                <span class="ide-live-badge">&#9679; Available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-cue"><span></span></div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="section" id="about">
+        <div class="container reveal">
+          <h2 class="section-title">About <span class="accent">Me</span></h2>
+          <div class="about-grid">
+            <div class="about-text">
+              <p>
+                I'm a passionate <strong>AI Engineer</strong> and
+                <strong>Data Scientist</strong> with a deep love for Python. I
+                build intelligent applications — from image classifiers and NLP
+                models to real-time data pipelines.
+              </p>
+              <p style="margin-top: 14px">
+                Currently a <strong>Class 12 student</strong> at
+                <strong>Narsingdi Government College</strong>, Bangladesh — and
+                already diving deep into AI research,
+                <strong>Deep Learning</strong>,
+                <strong>Computer Vision</strong>, and
+                <strong>Generative AI</strong>. Also a
+                <strong>YouTuber</strong> sharing ML tutorials with the
+                community.
+              </p>
+              <div class="edu-badge tilt-card">
+                <span class="edu-icon">🎓</span>
+                <div>
+                  <strong>Narsingdi Government College</strong>
+                  <span>Class 12 · Science</span>
+                </div>
+              </div>
+              <div class="about-stats">
+                <div class="stat-item">
+                  <span class="stat-num" data-target="15">0</span
+                  ><span class="stat-suffix">+</span>
+                  <p>Projects</p>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-num" data-target="92">0</span
+                  ><span class="stat-suffix">%</span>
+                  <p>Top Accuracy</p>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-num" data-target="5">0</span
+                  ><span class="stat-suffix">k+</span>
+                  <p>Lines of Code</p>
+                </div>
+              </div>
+            </div>
+            <div class="about-tags">
+              <span class="tag">Python</span>
+              <span class="tag">TensorFlow</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">OpenCV</span>
+              <span class="tag">Keras</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Git</span>
+              <span class="tag">Jupyter</span>
+              <span class="tag">Matplotlib</span>
+              <span class="tag">Plotly</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="section section-alt" id="skills">
+        <div class="container reveal">
+          <h2 class="section-title">
+            Technical <span class="accent">Skills</span>
+          </h2>
+          <div class="skills-grid">
+            <div class="skill-category tilt-card">
+              <h3><span class="cat-icon">🐍</span> Python &amp; Core</h3>
+              <div class="skill-bars">
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Python</span><span class="skill-pct">95%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="95"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>NumPy / Pandas</span
+                    ><span class="skill-pct">90%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="90"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Data Visualization</span
+                    ><span class="skill-pct">85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="85"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>SQL</span><span class="skill-pct">78%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="78"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-category tilt-card">
+              <h3><span class="cat-icon">🧠</span> Machine Learning</h3>
+              <div class="skill-bars">
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>scikit-learn</span><span class="skill-pct">88%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="88"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>TensorFlow / Keras</span
+                    ><span class="skill-pct">85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="85"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>PyTorch</span><span class="skill-pct">75%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="75"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>NLP (NLTK / spaCy)</span
+                    ><span class="skill-pct">80%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="80"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-category tilt-card">
+              <h3><span class="cat-icon">👁️</span> Computer Vision</h3>
+              <div class="skill-bars">
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>OpenCV</span><span class="skill-pct">82%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="82"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>CNN Architecture</span
+                    ><span class="skill-pct">88%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="88"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Object Detection</span
+                    ><span class="skill-pct">70%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="70"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Image Segmentation</span
+                    ><span class="skill-pct">65%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="65"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-category tilt-card">
+              <h3><span class="cat-icon">⚙️</span> Tools &amp; DevOps</h3>
+              <div class="skill-bars">
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Git / GitHub</span><span class="skill-pct">88%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="88"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Jupyter Notebook</span
+                    ><span class="skill-pct">95%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="95"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Docker</span><span class="skill-pct">60%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="60"></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                    <span>Linux / Bash</span><span class="skill-pct">72%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-fill" data-width="72"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ML STATS DASHBOARD -->
+      <section class="section" id="ml">
+        <div class="container reveal">
+          <h2 class="section-title">
+            ML <span class="accent">Dashboard</span>
+          </h2>
+          <div class="boxes">
+            <div class="box tilt-card">
+              <div class="box-icon">🎯</div>
+              <h3>Best Accuracy</h3>
+              <p class="big-num">
+                <span class="stat-num" data-target="92">0</span>%
+              </p>
+              <small>Image Classification CNN</small>
+            </div>
+            <div class="box tilt-card">
+              <div class="box-icon">🏗️</div>
+              <h3>Architectures</h3>
+              <p class="big-num" style="font-size: 1rem">CNN · RNN · GAN</p>
+              <small>Deep Learning Models</small>
+            </div>
+            <div class="box tilt-card">
+              <div class="box-icon">📊</div>
+              <h3>Datasets Used</h3>
+              <p class="big-num">
+                <span class="stat-num" data-target="10">0</span>+
+              </p>
+              <small>Public &amp; Custom</small>
+            </div>
+            <div class="box tilt-card">
+              <div class="box-icon">🤖</div>
+              <h3>AI Models Built</h3>
+              <p class="big-num">
+                <span class="stat-num" data-target="8">0</span>+
+              </p>
+              <small>Deployed &amp; Researched</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PYTHON PROJECTS -->
+      <section class="section section-alt" id="projects">
+        <div class="container reveal">
+          <h2 class="section-title">
+            Python <span class="accent">Projects</span>
+          </h2>
+          <p class="section-sub">
+            Real-world ML &amp; AI projects built with Python
           </p>
-          <p style="margin-top:14px;">
-            Currently a <strong>Class 11 student</strong> at <strong>Narsingdi Government College</strong>, Bangladesh — and already diving deep into AI research, <strong>Deep Learning</strong>, <strong>Computer Vision</strong>, and <strong>Generative AI</strong>. Also a <strong>YouTuber</strong> sharing ML tutorials with the community.
+          <div class="projects-grid">
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #0f2027,
+                    #203a43,
+                    #2c5364
+                  );
+                "
+              >
+                <div class="project-emoji">🖼️</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">CNN</span
+                  ><span class="ptag">TensorFlow</span
+                  ><span class="ptag">OpenCV</span>
+                </div>
+                <h3>Image Classifier</h3>
+                <p>
+                  Convolutional neural network trained on CIFAR-10 achieving 92%
+                  accuracy. Supports real-time webcam inference via OpenCV.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">92% Acc</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #1a1a2e,
+                    #16213e,
+                    #0f3460
+                  );
+                "
+              >
+                <div class="project-emoji">💬</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">NLP</span><span class="ptag">BERT</span
+                  ><span class="ptag">FastAPI</span>
+                </div>
+                <h3>Sentiment Analyzer</h3>
+                <p>
+                  Fine-tuned BERT model for Twitter sentiment classification.
+                  REST API built with FastAPI serving real-time predictions.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">89% Acc</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #0d0d0d,
+                    #1a3a2a,
+                    #0a5c36
+                  );
+                "
+              >
+                <div class="project-emoji">📈</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">Pandas</span
+                  ><span class="ptag">Plotly</span
+                  ><span class="ptag">Dash</span>
+                </div>
+                <h3>Data Dashboard</h3>
+                <p>
+                  Interactive web dashboard built with Python Dash and Plotly.
+                  Visualises datasets with live filtering, charts and export.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">Live Data</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #2d1b69,
+                    #11998e,
+                    #38ef7d
+                  );
+                "
+              >
+                <div class="project-emoji">🏠</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">XGBoost</span
+                  ><span class="ptag">scikit-learn</span
+                  ><span class="ptag">Pandas</span>
+                </div>
+                <h3>House Price Predictor</h3>
+                <p>
+                  Regression model using XGBoost on the Kaggle housing dataset
+                  with a feature engineering pipeline. R² score of 0.85.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">R² 0.85</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #4a0080,
+                    #9900cc,
+                    #cc00ff
+                  );
+                "
+              >
+                <div class="project-emoji">✍️</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">LSTM</span><span class="ptag">Keras</span
+                  ><span class="ptag">NLP</span>
+                </div>
+                <h3>Text Generator</h3>
+                <p>
+                  LSTM-based text generation model trained on classic
+                  literature. Generates coherent paragraphs in the original
+                  author's style.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">Gen AI</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #0c3547,
+                    #1a6b8a,
+                    #23a6d5
+                  );
+                "
+              >
+                <div class="project-emoji">🔢</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">CNN</span><span class="ptag">MNIST</span
+                  ><span class="ptag">OpenCV</span>
+                </div>
+                <h3>Digit Recognizer</h3>
+                <p>
+                  Handwritten digit recognition achieving 99.1% accuracy on
+                  MNIST with a real-time canvas drawing interface in the
+                  browser.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">99.1% Acc</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #1f0036,
+                    #4b0082,
+                    #8a2be2
+                  );
+                "
+              >
+                <div class="project-emoji">🤖</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">Transformer</span
+                  ><span class="ptag">GPT</span
+                  ><span class="ptag">FastAPI</span>
+                </div>
+                <h3>AI Chatbot Assistant</h3>
+                <p>
+                  Context-aware conversational chatbot built with a transformer
+                  architecture and intent matching, served through a FastAPI
+                  backend.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">NLU</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #3a0d0d,
+                    #6b1a1a,
+                    #d52323
+                  );
+                "
+              >
+                <div class="project-emoji">📰</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">NLP</span><span class="ptag">TF-IDF</span
+                  ><span class="ptag">scikit-learn</span>
+                </div>
+                <h3>Fake News Detector</h3>
+                <p>
+                  Text classification pipeline using TF-IDF vectorization and a
+                  Passive Aggressive Classifier to flag misleading news
+                  articles.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">94% Acc</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #022c22,
+                    #0a5c46,
+                    #16c79a
+                  );
+                "
+              >
+                <div class="project-emoji">📉</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">LSTM</span
+                  ><span class="ptag">Time Series</span
+                  ><span class="ptag">Keras</span>
+                </div>
+                <h3>Stock Price Predictor</h3>
+                <p>
+                  LSTM-based time-series forecasting model trained on historical
+                  OHLC data, visualised with interactive Plotly candlestick
+                  charts.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">RMSE 1.8</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-card tilt-card">
+              <div
+                class="project-header"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #1a1500,
+                    #4d3a00,
+                    #c79a00
+                  );
+                "
+              >
+                <div class="project-emoji">🧑‍💻</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="ptag">Face Recognition</span
+                  ><span class="ptag">OpenCV</span
+                  ><span class="ptag">dlib</span>
+                </div>
+                <h3>Face Recognition Attendance</h3>
+                <p>
+                  Real-time facial recognition system that marks attendance
+                  automatically via webcam, logging entries straight to a
+                  CSV/database.
+                </p>
+                <div class="project-meta">
+                  <span class="badge-acc">Real-time</span>
+                  <span class="badge-lang">Python 🐍</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/progwithsiam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sm"
+                    >GitHub</a
+                  >
+                  <a href="#" class="btn-sm btn-ghost">Live Demo</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PREMIUM COURSE PLATFORM -->
+      <section class="section" id="course">
+        <div class="container reveal">
+          <div class="course-intro">
+            <div>
+              <h2 class="section-title">
+                Premium Python <span class="accent">Course Platform</span>
+              </h2>
+              <p class="section-sub">
+                A polished learning experience inspired by modern coding academies, built for your uploaded lessons and future students.
+              </p>
+            </div>
+            <a href="#course" class="btn btn-primary">Explore Courses</a>
+          </div>
+
+          <div class="course-hero-card tilt-card">
+            <div>
+              <div class="course-pill">
+                <i class="fa-solid fa-sparkles"></i>
+                CodeWithSiam 
+              </div>
+              <h3>Learn Python with guided modules, progress tracking, and a premium video experience.</h3>
+              <p>
+                Published courses appear here automatically. Upcoming courses are featured separately so your audience can discover what’s next.
+              </p>
+              <div class="hero-actions">
+                <button type="button" class="btn btn-primary" id="continueLearningHeroBtn">Continue Learning</button>
+                <a href="admin.html" class="btn btn-outline">Manage Courses</a>
+              </div>
+            </div>
+            <div class="course-hero-metrics">
+              <div class="metric-card">
+                <strong id="courseCount">0</strong>
+                <span>Published</span>
+              </div>
+              <div class="metric-card">
+                <strong id="lessonCount">0</strong>
+                <span>Lessons</span>
+              </div>
+              <div class="metric-card">
+                <strong id="upcomingCount">0</strong>
+                <span>Upcoming</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="courseLoadingState" class="course-loading-shell" aria-live="polite">
+            <div class="course-loading-skeleton"></div>
+            <div class="course-loading-skeleton short"></div>
+            <div class="course-loading-skeleton short"></div>
+          </div>
+
+          <div id="coursePlatform" class="course-platform hidden">
+            <div class="course-dashboard-shell">
+              <aside class="course-sidebar">
+                <div class="sidebar-header">
+                  <div>
+                    <p class="eyebrow">Course library</p>
+                    <h4 id="sidebarCourseTitle">Select a course</h4>
+                  </div>
+                  <button type="button" class="icon-button" id="sidebarToggleBtn" aria-label="Toggle lesson list">
+                    <i class="fa-solid fa-bars"></i>
+                  </button>
+                </div>
+
+                <label class="course-search" for="lessonSearch">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="search" id="lessonSearch" placeholder="Search lessons" />
+                </label>
+
+                <div class="course-stats">
+                  <span class="stat-pill" id="totalLessonsBadge">0 lessons</span>
+                  <span class="stat-pill" id="totalDurationBadge">0 min</span>
+                </div>
+
+                <div id="moduleList" class="module-list"></div>
+              </aside>
+
+              <main class="course-player-panel">
+                <div class="player-topbar">
+                  <div class="progress-meta">
+                    <span class="eyebrow">Course progress</span>
+                    <div class="progress-track" aria-hidden="true">
+                      <div id="courseProgressBar" class="progress-fill"></div>
+                    </div>
+                    <span id="courseProgressText">0% complete</span>
+                  </div>
+                  <div class="player-actions">
+                    <select id="speedSelect" class="speed-select" aria-label="Playback speed">
+                      <option value="0.5">0.5x</option>
+                      <option value="1">1x</option>
+                      <option value="1.25">1.25x</option>
+                      <option value="1.5">1.5x</option>
+                      <option value="2">2x</option>
+                    </select>
+                    <button type="button" class="btn btn-outline small" id="prevLessonBtn">Previous</button>
+                    <button type="button" class="btn btn-primary small" id="nextLessonBtn">Next</button>
+                  </div>
+                </div>
+
+                <div class="player-stage">
+                  <div class="player-frame">
+                    <video id="courseVideo" preload="metadata" playsinline></video>
+                    <iframe id="courseYoutubeFrame" class="hidden" title="Lesson video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                    <div class="video-skeleton" id="videoSkeleton" aria-hidden="true">
+                      <div class="skeleton-shine"></div>
+                    </div>
+                    <div class="video-placeholder hidden" id="videoPlaceholder">
+                      <i class="fa-solid fa-video"></i>
+                      <p>Upload a lesson video from the admin panel to unlock streaming here.</p>
+                    </div>
+                    <div class="video-controls" id="videoControls" role="group" aria-label="Video player controls">
+                      <button type="button" class="video-control-btn" id="videoPlayPauseBtn" aria-label="Play lesson">
+                        <i class="fa-solid fa-play"></i>
+                      </button>
+                      <div class="video-progress-wrap">
+                        <div class="video-progress-track" id="videoProgressTrack" role="slider" aria-label="Video progress" tabindex="0">
+                          <div class="video-progress-fill" id="videoProgressFill"></div>
+                        </div>
+                      </div>
+                      <span class="video-time" id="videoTimeLabel">0:00 / 0:00</span>
+                      <button type="button" class="video-control-btn" id="videoMuteBtn" aria-label="Mute video">
+                        <i class="fa-solid fa-volume-high"></i>
+                      </button>
+                      <button type="button" class="video-control-btn" id="videoFullscreenBtn" aria-label="Fullscreen video">
+                        <i class="fa-solid fa-expand"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="player-info">
+                    <div class="player-head">
+                      <div>
+                        <p class="eyebrow" id="currentLessonMeta">Lesson</p>
+                        <h3 id="currentLessonTitle">Choose a lesson</h3>
+                      </div>
+                      <div class="player-badges">
+                        <span class="course-badge" id="currentLessonDuration">0 min</span>
+                        <span class="course-badge accent" id="currentLessonStatus">Queued</span>
+                      </div>
+                    </div>
+                    <p id="currentLessonDescription" class="course-description">
+                      Start a lesson to view its description, notes, and resources.
+                    </p>
+                    <div class="player-footer">
+                      <button type="button" class="btn btn-primary" id="markCompleteBtn">Mark as complete</button>
+                      <button type="button" class="btn btn-outline" id="restartLessonBtn">Restart lesson</button>
+                      <button type="button" class="btn btn-outline small" id="pipBtn">PiP</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="lesson-details-grid">
+                  <article class="glass-card">
+                    <div class="glass-card-head">
+                      <h4>Lesson Notes</h4>
+                      <span class="tiny-pill">Saved locally</span>
+                    </div>
+                    <textarea id="lessonNotesInput" class="lesson-notes-input" placeholder="Capture key ideas, reminders, and setup steps..."></textarea>
+                    <p class="helper-text">Your notes stay on this device for the current lesson.</p>
+                  </article>
+                  <article class="glass-card">
+                    <div class="glass-card-head">
+                      <h4>Downloadable Resources</h4>
+                      <span class="tiny-pill">PDF · ZIP · Code</span>
+                    </div>
+                    <ul id="lessonResources" class="resource-list">
+                      <li>Resources appear here automatically.</li>
+                    </ul>
+                  </article>
+                </div>
+              </main>
+            </div>
+          </div>
+
+          <div id="courseEmptyState" class="empty-state hidden">
+            <h3>No published courses yet</h3>
+            <p>Upload your first course from the admin page to launch a premium learning experience.</p>
+          </div>
+
+          <div id="upcomingCoursesSection" class="course-upcoming hidden">
+            <div class="upcoming-heading">
+              <div>
+                <p class="eyebrow">Coming soon</p>
+                <h3>Upcoming Courses</h3>
+              </div>
+            </div>
+            <div id="upcomingCourseList" class="upcoming-grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Chat removed from page body — floating widget only -->
+
+      <!-- CONTACT -->
+      <section class="section section-alt" id="contact">
+        <div class="container reveal">
+          <h2 class="section-title">
+            Get In <span class="accent">Touch</span>
+          </h2>
+          <p class="section-sub">
+            Open to collaborations, research, and opportunities
           </p>
-          <div class="edu-badge tilt-card">
-            <span class="edu-icon">🎓</span>
-            <div>
-              <strong>Narsingdi Government College</strong>
-              <span>Class 11 · Science</span>
+          <div class="contact-grid">
+            <div class="contact-info">
+              <div class="contact-item">
+                <span class="c-icon">📧</span>
+                <div>
+                  <strong>Email</strong>
+                  <p>mdsiamahmmedloselovestroy@gmail.com</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="c-icon">📱</span>
+                <div>
+                  <strong>Phone</strong>
+                  <p>01644171751</p>
+                </div>
+              </div>
+              <a
+                href="https://wa.me/8801644171751"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contact-item contact-whatsapp"
+              >
+                <span class="c-icon">💬</span>
+                <div>
+                  <strong>WhatsApp</strong>
+                  <p>Chat with me directly</p>
+                </div>
+                <span class="wa-arrow">→</span>
+              </a>
+              <div class="contact-item">
+                <span class="c-icon">📍</span>
+                <div>
+                  <strong>Location</strong>
+                  <p>Bangladesh</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="about-stats">
-            <div class="stat-item">
-              <span class="stat-num" data-target="15">0</span><span class="stat-suffix">+</span>
-              <p>Projects</p>
-            </div>
-            <div class="stat-item">
-              <span class="stat-num" data-target="92">0</span><span class="stat-suffix">%</span>
-              <p>Top Accuracy</p>
-            </div>
-            <div class="stat-item">
-              <span class="stat-num" data-target="5">0</span><span class="stat-suffix">k+</span>
-              <p>Lines of Code</p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/siam.ahmed.772527"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card sc-facebook"
+              >
+                <span class="s-icon">f</span><span>Facebook</span>
+              </a>
+              <a
+                href="https://www.instagram.com/codewith_siam/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card sc-instagram"
+              >
+                <span class="s-icon">&#9632;</span><span>Instagram</span>
+              </a>
+              <a
+                href="https://github.com/progwithsiam"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card sc-github"
+              >
+                <span class="s-icon">&#9670;</span><span>GitHub</span>
+              </a>
+              <a
+                href="https://youtube.com/@SiamLearningHub"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card sc-youtube"
+              >
+                <span class="s-icon">&#9654;</span><span>YouTube</span>
+              </a>
+              <a
+                href="https://wa.me/8801644171751"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card sc-whatsapp"
+              >
+                <span class="s-icon">wa</span><span>WhatsApp</span>
+              </a>
+              <a
+                href="https://starconnect.com/profile/siam"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card sc-whatsapp"
+              >
+                <span class="s-icon">SC</span><span>StarConnect</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/si-am-b417a6412/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card sc-whatsapp"
+              >
+                <span class="s-icon">ln</span><span>LinkedIn</span>
+              </a>
             </div>
           </div>
         </div>
-        <div class="about-tags">
-          <span class="tag">Python</span>
-          <span class="tag">TensorFlow</span>
-          <span class="tag">PyTorch</span>
-          <span class="tag">scikit-learn</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">NumPy</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">Keras</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">SQL</span>
-          <span class="tag">Git</span>
-          <span class="tag">Jupyter</span>
-          <span class="tag">Matplotlib</span>
-          <span class="tag">Plotly</span>
-        </div>
-      </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <p>
+          Designed &amp; built by
+          <span class="accent">Md Siam Ahmmed</span> &copy; 2026
+        </p>
+        <p class="footer-sub">Made with Python 🐍 &amp; passion for AI</p>
+      </footer>
     </div>
-  </section>
+    <!-- /siteRoot -->
 
-  <!-- SKILLS -->
-  <section class="section section-alt" id="skills">
-    <div class="container reveal">
-      <h2 class="section-title">Technical <span class="accent">Skills</span></h2>
-      <div class="skills-grid">
-
-        <div class="skill-category tilt-card">
-          <h3><span class="cat-icon">🐍</span> Python &amp; Core</h3>
-          <div class="skill-bars">
-            <div class="skill-item">
-              <div class="skill-label"><span>Python</span><span class="skill-pct">95%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>NumPy / Pandas</span><span class="skill-pct">90%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Data Visualization</span><span class="skill-pct">85%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>SQL</span><span class="skill-pct">78%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-category tilt-card">
-          <h3><span class="cat-icon">🧠</span> Machine Learning</h3>
-          <div class="skill-bars">
-            <div class="skill-item">
-              <div class="skill-label"><span>scikit-learn</span><span class="skill-pct">88%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>TensorFlow / Keras</span><span class="skill-pct">85%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>PyTorch</span><span class="skill-pct">75%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>NLP (NLTK / spaCy)</span><span class="skill-pct">80%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-category tilt-card">
-          <h3><span class="cat-icon">👁️</span> Computer Vision</h3>
-          <div class="skill-bars">
-            <div class="skill-item">
-              <div class="skill-label"><span>OpenCV</span><span class="skill-pct">82%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="82"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>CNN Architecture</span><span class="skill-pct">88%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Object Detection</span><span class="skill-pct">70%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Image Segmentation</span><span class="skill-pct">65%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="65"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-category tilt-card">
-          <h3><span class="cat-icon">⚙️</span> Tools &amp; DevOps</h3>
-          <div class="skill-bars">
-            <div class="skill-item">
-              <div class="skill-label"><span>Git / GitHub</span><span class="skill-pct">88%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Jupyter Notebook</span><span class="skill-pct">95%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Docker</span><span class="skill-pct">60%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Linux / Bash</span><span class="skill-pct">72%</span></div>
-              <div class="skill-bar"><div class="skill-fill" data-width="72"></div></div>
-            </div>
-          </div>
-        </div>
-
+    <!-- Top-level chatbox (fixed) -->
+    <div id="siteChatbox" class="chatbox" aria-hidden="true">
+      <div class="chat-header">
+        <div class="bot-dot"></div>
+        <span>Siam's AI Assistant</span>
+        <button id="voiceToggle" class="voice-toggle" title="Toggle spoken replies" aria-pressed="true">🔊</button>
+        <span class="online-indicator" aria-hidden="true"></span>
       </div>
+      <div id="chat">
+        <div class="msg bot-msg">
+          <span class="avatar">🤖</span>
+          <div class="bubble">Hey! I'm Siam's AI assistant.How can i help you?</div>
+        </div>
+      </div>
+      <div class="chat-suggestions">
+        <button class="suggest-btn" onclick="quickAsk('What Python projects have you built?')">📁 Projects?</button>
+        <button class="suggest-btn" onclick="quickAsk('What is your best Python skill?')">🐍 Python skills?</button>
+        <button class="suggest-btn" onclick="quickAsk('Tell me about your CNN model')">🧠 CNN model?</button>
+        <button class="suggest-btn" onclick="quickAsk('Tell me about the free Python course')">🐍 Free course?</button>
+      </div>
+      <div class="chat-input-wrap">
+        <button id="micBtn" title="Speak your question" aria-label="Start voice input">🎤</button>
+        <input type="text" id="input" placeholder="Type a message or tap the mic..." />
+        <button onclick="sendMessage()" id="sendBtn">Send ➤</button>
+      </div>
+      <p class="mic-status" id="micStatus"></p>
     </div>
-  </section>
 
-  <!-- ML STATS DASHBOARD -->
-  <section class="section" id="ml">
-    <div class="container reveal">
-      <h2 class="section-title">ML <span class="accent">Dashboard</span></h2>
-      <div class="boxes">
-        <div class="box tilt-card">
-          <div class="box-icon">🎯</div>
-          <h3>Best Accuracy</h3>
-          <p class="big-num"><span class="stat-num" data-target="92">0</span>%</p>
-          <small>Image Classification CNN</small>
-        </div>
-        <div class="box tilt-card">
-          <div class="box-icon">🏗️</div>
-          <h3>Architectures</h3>
-          <p class="big-num" style="font-size:1rem;">CNN · RNN · GAN</p>
-          <small>Deep Learning Models</small>
-        </div>
-        <div class="box tilt-card">
-          <div class="box-icon">📊</div>
-          <h3>Datasets Used</h3>
-          <p class="big-num"><span class="stat-num" data-target="10">0</span>+</p>
-          <small>Public &amp; Custom</small>
-        </div>
-        <div class="box tilt-card">
-          <div class="box-icon">🤖</div>
-          <h3>AI Models Built</h3>
-          <p class="big-num"><span class="stat-num" data-target="8">0</span>+</p>
-          <small>Deployed &amp; Researched</small>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Floating chat toggle -->
+    <button id="chatToggleBtn" class="chat-toggle-btn" aria-label="Open chat" aria-expanded="false">
+      <span class="chat-icon" aria-hidden="true">💬</span>
+      <span class="online-badge-small" aria-hidden="true"></span>
+    </button>
 
-  <!-- PYTHON PROJECTS -->
-  <section class="section section-alt" id="projects">
-    <div class="container reveal">
-      <h2 class="section-title">Python <span class="accent">Projects</span></h2>
-      <p class="section-sub">Real-world ML &amp; AI projects built with Python</p>
-      <div class="projects-grid">
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)">
-            <div class="project-emoji">🖼️</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">CNN</span><span class="ptag">TensorFlow</span><span class="ptag">OpenCV</span>
-            </div>
-            <h3>Image Classifier</h3>
-            <p>Convolutional neural network trained on CIFAR-10 achieving 92% accuracy. Supports real-time webcam inference via OpenCV.</p>
-            <div class="project-meta">
-              <span class="badge-acc">92% Acc</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)">
-            <div class="project-emoji">💬</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">NLP</span><span class="ptag">BERT</span><span class="ptag">FastAPI</span>
-            </div>
-            <h3>Sentiment Analyzer</h3>
-            <p>Fine-tuned BERT model for Twitter sentiment classification. REST API built with FastAPI serving real-time predictions.</p>
-            <div class="project-meta">
-              <span class="badge-acc">89% Acc</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#0d0d0d,#1a3a2a,#0a5c36)">
-            <div class="project-emoji">📈</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">Pandas</span><span class="ptag">Plotly</span><span class="ptag">Dash</span>
-            </div>
-            <h3>Data Dashboard</h3>
-            <p>Interactive web dashboard built with Python Dash and Plotly. Visualises datasets with live filtering, charts and export.</p>
-            <div class="project-meta">
-              <span class="badge-acc">Live Data</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#2d1b69,#11998e,#38ef7d)">
-            <div class="project-emoji">🏠</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">XGBoost</span><span class="ptag">scikit-learn</span><span class="ptag">Pandas</span>
-            </div>
-            <h3>House Price Predictor</h3>
-            <p>Regression model using XGBoost on the Kaggle housing dataset with a feature engineering pipeline. R² score of 0.85.</p>
-            <div class="project-meta">
-              <span class="badge-acc">R² 0.85</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#4a0080,#9900cc,#cc00ff)">
-            <div class="project-emoji">✍️</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">LSTM</span><span class="ptag">Keras</span><span class="ptag">NLP</span>
-            </div>
-            <h3>Text Generator</h3>
-            <p>LSTM-based text generation model trained on classic literature. Generates coherent paragraphs in the original author's style.</p>
-            <div class="project-meta">
-              <span class="badge-acc">Gen AI</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#0c3547,#1a6b8a,#23a6d5)">
-            <div class="project-emoji">🔢</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">CNN</span><span class="ptag">MNIST</span><span class="ptag">OpenCV</span>
-            </div>
-            <h3>Digit Recognizer</h3>
-            <p>Handwritten digit recognition achieving 99.1% accuracy on MNIST with a real-time canvas drawing interface in the browser.</p>
-            <div class="project-meta">
-              <span class="badge-acc">99.1% Acc</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#1f0036,#4b0082,#8a2be2)">
-            <div class="project-emoji">🤖</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">Transformer</span><span class="ptag">GPT</span><span class="ptag">FastAPI</span>
-            </div>
-            <h3>AI Chatbot Assistant</h3>
-            <p>Context-aware conversational chatbot built with a transformer architecture and intent matching, served through a FastAPI backend.</p>
-            <div class="project-meta">
-              <span class="badge-acc">NLU</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#3a0d0d,#6b1a1a,#d52323)">
-            <div class="project-emoji">📰</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">NLP</span><span class="ptag">TF-IDF</span><span class="ptag">scikit-learn</span>
-            </div>
-            <h3>Fake News Detector</h3>
-            <p>Text classification pipeline using TF-IDF vectorization and a Passive Aggressive Classifier to flag misleading news articles.</p>
-            <div class="project-meta">
-              <span class="badge-acc">94% Acc</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#022c22,#0a5c46,#16c79a)">
-            <div class="project-emoji">📉</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">LSTM</span><span class="ptag">Time Series</span><span class="ptag">Keras</span>
-            </div>
-            <h3>Stock Price Predictor</h3>
-            <p>LSTM-based time-series forecasting model trained on historical OHLC data, visualised with interactive Plotly candlestick charts.</p>
-            <div class="project-meta">
-              <span class="badge-acc">RMSE 1.8</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card tilt-card">
-          <div class="project-header" style="background:linear-gradient(135deg,#1a1500,#4d3a00,#c79a00)">
-            <div class="project-emoji">🧑‍💻</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="ptag">Face Recognition</span><span class="ptag">OpenCV</span><span class="ptag">dlib</span>
-            </div>
-            <h3>Face Recognition Attendance</h3>
-            <p>Real-time facial recognition system that marks attendance automatically via webcam, logging entries straight to a CSV/database.</p>
-            <div class="project-meta">
-              <span class="badge-acc">Real-time</span>
-              <span class="badge-lang">Python 🐍</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="btn-sm">GitHub</a>
-              <a href="#" class="btn-sm btn-ghost">Live Demo</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FREE PYTHON COURSE -->
-  <section class="section" id="course">
-    <div class="container reveal">
-      <h2 class="section-title">Free Python <span class="accent">Course</span></h2>
-      <p class="section-sub">From absolute beginner to Python master — completely free, forever</p>
-      <div class="course-banner tilt-card">
-        <div class="course-badge-wrap">
-          <span class="course-free-badge">100% FREE</span>
-        </div>
-        <div class="course-hero-text">
-          <h3>Python: Beginner to Master</h3>
-          <p>A complete, structured Python course — no experience needed. I'll guide you from your very first <code>print("Hello World")</code> all the way to building real ML models and AI projects.</p>
-        </div>
-        <div class="course-snake">🐍</div>
-      </div>
-
-      <div class="course-modules">
-        <div class="module-card">
-          <div class="module-num">01</div>
-          <div class="module-info">
-            <h4>Python Basics</h4>
-            <p>Variables, data types, loops, functions, and OOP from scratch</p>
-          </div>
-          <span class="module-tag soon">Soon</span>
-        </div>
-        <div class="module-card">
-          <div class="module-num">02</div>
-          <div class="module-info">
-            <h4>Data Science with Python</h4>
-            <p>NumPy, Pandas, Matplotlib — analyse and visualise real datasets</p>
-          </div>
-          <span class="module-tag soon">Soon</span>
-        </div>
-        <div class="module-card">
-          <div class="module-num">03</div>
-          <div class="module-info">
-            <h4>Machine Learning</h4>
-            <p>scikit-learn, regression, classification, clustering &amp; model evaluation</p>
-          </div>
-          <span class="module-tag soon">Soon</span>
-        </div>
-        <div class="module-card">
-          <div class="module-num">04</div>
-          <div class="module-info">
-            <h4>Deep Learning &amp; AI</h4>
-            <p>TensorFlow, Keras, CNNs, RNNs — build real AI applications</p>
-          </div>
-          <span class="module-tag soon">Soon</span>
-        </div>
-      </div>
-
-      <div class="course-cta">
-        <p class="course-notify-text">Course launching soon on YouTube — get notified!</p>
-        <div class="course-cta-btns">
-          <a href="https://youtube.com/@SiamLearningHub" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Subscribe on YouTube</a>
-          <a href="https://wa.me/8801644171751?text=Hi%20Siam!%20I%20want%20to%20join%20the%20free%20Python%20course." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">Join on WhatsApp</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- AI CHATBOT -->
-  <section class="section section-alt" id="chatbot">
-    <div class="container reveal">
-      <h2 class="section-title">AI <span class="accent">Chatbot</span></h2>
-      <p class="section-sub">Ask me about Python, ML projects, or AI topics — by text or voice</p>
-      <div class="chatbox">
-        <div class="chat-header">
-          <div class="bot-dot"></div>
-          <span>Siam's AI Assistant</span>
-          <button id="voiceToggle" class="voice-toggle" title="Toggle spoken replies" aria-pressed="true">🔊</button>
-          <span class="online-badge">● Online</span>
-        </div>
-        <div id="chat">
-          <div class="msg bot-msg">
-            <span class="avatar">🤖</span>
-            <div class="bubble">Hey! I'm Siam's AI assistant, now powered by real AI. Type or tap the mic to talk to me about Python, ML projects, deep learning, or anything AI-related! 👋</div>
-          </div>
-        </div>
-        <div class="chat-suggestions">
-          <button class="suggest-btn" onclick="quickAsk('What Python projects have you built?')">📁 Projects?</button>
-          <button class="suggest-btn" onclick="quickAsk('What is your best Python skill?')">🐍 Python skills?</button>
-          <button class="suggest-btn" onclick="quickAsk('Tell me about your CNN model')">🧠 CNN model?</button>
-          <button class="suggest-btn" onclick="quickAsk('Tell me about the free Python course')">🐍 Free course?</button>
-        </div>
-        <div class="chat-input-wrap">
-          <button id="micBtn" title="Speak your question" aria-label="Start voice input">🎤</button>
-          <input type="text" id="input" placeholder="Type a message or tap the mic..." />
-          <button onclick="sendMessage()" id="sendBtn">Send ➤</button>
-        </div>
-        <p class="mic-status" id="micStatus"></p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- CONTACT -->
-  <section class="section section-alt" id="contact">
-    <div class="container reveal">
-      <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
-      <p class="section-sub">Open to collaborations, research, and opportunities</p>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-item">
-            <span class="c-icon">📧</span>
-            <div>
-              <strong>Email</strong>
-              <p>mdsiamahmmedloselovestroy@gmail.com</p>
-            </div>
-          </div>
-          <div class="contact-item">
-            <span class="c-icon">📱</span>
-            <div>
-              <strong>Phone</strong>
-              <p>01644171751</p>
-            </div>
-          </div>
-          <a href="https://wa.me/8801644171751" target="_blank" rel="noopener noreferrer" class="contact-item contact-whatsapp">
-            <span class="c-icon">💬</span>
-            <div>
-              <strong>WhatsApp</strong>
-              <p>Chat with me directly</p>
-            </div>
-            <span class="wa-arrow">→</span>
-          </a>
-          <div class="contact-item">
-            <span class="c-icon">📍</span>
-            <div>
-              <strong>Location</strong>
-              <p>Bangladesh</p>
-            </div>
-          </div>
-        </div>
-        <div class="social-links">
-          <a href="https://facebook.com/siam.ahmed.772527" target="_blank" rel="noopener noreferrer" class="social-card sc-facebook">
-            <span class="s-icon">f</span><span>Facebook</span>
-          </a>
-          <a href="https://instagram.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="social-card sc-instagram">
-            <span class="s-icon">&#9632;</span><span>Instagram</span>
-          </a>
-          <a href="https://github.com/siamlearninghub" target="_blank" rel="noopener noreferrer" class="social-card sc-github">
-            <span class="s-icon">&#9670;</span><span>GitHub</span>
-          </a>
-          <a href="https://youtube.com/@SiamLearningHub" target="_blank" rel="noopener noreferrer" class="social-card sc-youtube">
-            <span class="s-icon">&#9654;</span><span>YouTube</span>
-          </a>
-          <a href="https://wa.me/8801644171751" target="_blank" rel="noopener noreferrer" class="social-card sc-whatsapp">
-            <span class="s-icon">wa</span><span>WhatsApp</span>
-          </a>
-           <a href="https://starconnect.com/profile/siam" target="_blank" rel="noopener noreferrer" class="social-card sc-whatsapp">
-            <span class="s-icon">SC</span><span>StarConnect</span>
-          </a>
-           <a href="https://www.linkedin.com/in/si-am-b417a6412/" target="_blank" rel="noopener noreferrer" class="social-card sc-whatsapp">
-            <span class="s-icon">ln</span><span>LinkedIn</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>Designed &amp; built by <span class="accent">Md Siam Ahmmed</span> &copy; 2026</p>
-    <p class="footer-sub">Made with Python 🐍 &amp; passion for AI</p>
-  </footer>
-
-  </div><!-- /siteRoot -->
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
