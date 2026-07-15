@@ -2338,9 +2338,38 @@ body, #siteRoot, .section {
 .contact-whatsapp {
   cursor: pointer;
   transition: padding-left 0.25s;
+  text-decoration: none;
+}
+.contact-whatsapp:link,
+.contact-whatsapp:visited {
+  color: var(--text);
+  text-decoration: none;
 }
 .contact-whatsapp:hover {
   padding-left: 8px;
+}
+.contact-whatsapp div strong {
+  color: var(--text) !important;
+}
+.contact-whatsapp:hover div strong {
+  color: var(--cyan) !important;
+}
+.contact-whatsapp .c-icon i {
+  color: #25d366;
+}
+.wa-arrow {
+  margin-left: auto;
+  color: var(--cyan);
+}
+
+.social-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  align-content: start;
+}
+.social-card {
+  ...
 }
 .wa-arrow {
   margin-left: auto;
@@ -2383,6 +2412,35 @@ body, #siteRoot, .section {
   font-size: 0.85rem;
   font-weight: 700;
 }
+.s-icon i {
+  font-size: 1rem;
+}
+.social-card:hover .s-icon { background: rgba(255,255,255,0.08); }
+
+.s-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel-2);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.s-icon i {
+  font-size: 1rem;
+}
+.social-card:hover .s-icon { background: rgba(255,255,255,0.08); }
+
+/* এখানে নতুন কোড যোগ করুন */
+.sc-facebook .s-icon i { color: #1877f2; }
+.sc-instagram .s-icon i { color: #e1306c; }
+.sc-github .s-icon i { color: #ffffff; }
+.sc-youtube .s-icon i { color: #ff0000; }
+.sc-whatsapp .s-icon i { color: #25d366; }
+.sc-starconnect .s-icon i { color: #ffd43b; }
+.sc-linkedin .s-icon i { color: #0a66c2; }
 
 @media (max-width: 860px) {
   .contact-grid {
@@ -2394,6 +2452,40 @@ body, #siteRoot, .section {
   .social-links {
     grid-template-columns: 1fr;
   }
+}
+.social-card {
+  color: var(--text);
+  text-decoration: none;
+}
+
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+@media (max-width: 480px) {
+  .social-links {
+    grid-template-columns: 1fr;
+  }
+}
+.social-card {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.social-card:link,
+.social-card:visited {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.social-card:hover {
+  color: var(--cyan);
+}
+
+.s-icon {
+  color: var(--text);
 }
 
 /* =========================================================
@@ -2543,7 +2635,7 @@ footer {
 }
 
 .microsoft i {
-  color: #00a4ef;
+  color: #c1d9e5;
 }
 
 .facebook i {
