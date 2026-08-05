@@ -7,6 +7,7 @@
     <base href="/" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
     <script src="/firebase-config.js"></script>
     <script>
@@ -68,17 +69,23 @@
       }
       .admin-body {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+        grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+        gap: 26px;
+        background: transparent;
+        align-items: start;
       }
       .admin-panel {
-        padding: 30px 32px;
-        background: rgba(13, 18, 28, 0.96);
+        padding: 34px 34px 28px;
+        background: rgba(9, 14, 26, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 28px 100px rgba(0, 0, 0, 0.22);
+        border-radius: 28px;
+        backdrop-filter: blur(16px);
       }
       .admin-panel h2 {
         margin-top: 0;
-        font-size: 1.25rem;
+        font-size: 1.6rem;
+        letter-spacing: 0.02em;
       }
       .admin-panel p,
       .admin-panel label {
@@ -95,8 +102,26 @@
         font-size: 0.94rem;
       }
       .form-grid input,
-      .form-grid button {
+      .form-grid button,
+      .form-grid select,
+      .form-grid textarea {
         width: 100%;
+      }
+      .form-grid > button,
+      .form-grid > p.status,
+      .form-grid > div {
+        grid-column: 1 / -1;
+      }
+      @media (min-width: 960px) {
+        .form-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .form-grid > label:nth-child(odd) {
+          padding-right: 8px;
+        }
+        .form-grid > label:nth-child(even) {
+          padding-left: 8px;
+        }
       }
       .form-grid input[type="text"],
       .form-grid input[type="email"],
@@ -139,7 +164,7 @@
       }
       .btn-full:hover {
         transform: translateY(-2px);
-        box-shadow: 0 14px 35px rgba(255, 212, 59, 0.18);
+        box-shadow: 0 16px 45px rgba(255, 212, 59, 0.22);
       }
       .btn-secondary {
         all: unset;
@@ -185,22 +210,33 @@
         display: none;
       }
       .admin-sidebar {
-        padding: 30px 32px;
-        background: rgba(13, 18, 28, 0.96);
-        border-left: 1px solid rgba(255,255,255,0.08);
+        padding: 30px 28px 32px;
+        background: rgba(11, 16, 26, 0.92);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 28px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(16px);
+        min-height: 540px;
       }
       .admin-sidebar h3 {
         margin-top: 0;
+        font-size: 1.25rem;
+        letter-spacing: 0.02em;
       }
       .sidebar-card {
         margin-top: 18px;
-        padding: 16px 18px;
-        border-radius: 18px;
+        padding: 18px 20px;
+        border-radius: 22px;
         background: rgba(255,255,255,0.03);
         border: 1px solid rgba(255,255,255,0.08);
       }
       .sidebar-card strong {
         color: var(--text);
+      }
+      .sidebar-card p {
+        margin-top: 10px;
+        color: var(--text-dim);
+        line-height: 1.7;
       }
       .sidebar-list {
         margin: 14px 0 0;
@@ -210,22 +246,67 @@
       .sidebar-list li {
         color: var(--text-dim);
         font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      .sidebar-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 212, 59, 0.12);
+        color: var(--cyan);
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-top: 14px;
       }
       .logout {
         margin-top: 18px;
         display: inline-flex;
-        padding: 12px 18px;
-        border-radius: 14px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 20px;
+        border-radius: 16px;
         border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.04);
         color: var(--text);
         cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .logout:hover {
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.08);
       }
       .preview-card {
         margin-top: 22px;
-        padding: 20px;
-        border-radius: 22px;
-        background: rgba(255,255,255,0.04);
+        padding: 24px;
+        border-radius: 26px;
+        background: linear-gradient(180deg, rgba(28, 38, 63, 0.96), rgba(15, 20, 35, 0.98));
         border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      }
+      .preview-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .preview-card-header h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+      .sidebar-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 212, 59, 0.13);
+        color: var(--cyan);
+        font-size: 0.85rem;
+        font-weight: 700;
       }
       .preview-row {
         display: grid;
@@ -233,10 +314,16 @@
       }
       .preview-video,
       .preview-thumb {
-        border-radius: 18px;
-        background: rgba(0, 0, 0, 0.18);
+        border-radius: 22px;
+        background: rgba(6, 12, 25, 0.72);
         overflow: hidden;
-        min-height: 200px;
+        min-height: 220px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      @media (min-width: 860px) {
+        .preview-row {
+          grid-template-columns: 1fr 1fr;
+        }
       }
       .preview-video video,
       .preview-thumb img {
@@ -247,10 +334,11 @@
       }
       .upload-list {
         margin-top: 16px;
-        padding: 16px;
-        border-radius: 18px;
+        padding: 20px;
+        border-radius: 22px;
         background: rgba(255,255,255,0.03);
         border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
       }
       .upload-item {
         display: grid;
@@ -264,6 +352,9 @@
       .upload-item span {
         color: var(--text-dim);
         font-size: 0.92rem;
+      }
+      .upload-item strong {
+        color: var(--text);
       }
       .secondary-text {
         color: var(--text-dim);
@@ -365,7 +456,10 @@
             <p class="status" id="uploadStatus"></p>
           </div>
           <div class="preview-card hidden" id="previewCard">
-            <h3>Latest Upload Preview</h3>
+            <div class="preview-card-header">
+              <h3>Latest Upload Preview</h3>
+              <span class="sidebar-pill">Preview</span>
+            </div>
             <div class="preview-row">
               <div class="preview-thumb" id="previewThumb">
                 <img src="" alt="Thumbnail preview" id="previewThumbImg" />
@@ -379,6 +473,26 @@
           <div class="upload-list hidden" id="uploadList"></div>
           <button class="logout" id="logoutBtn">Logout</button>
         </div>
+
+        <aside class="admin-sidebar">
+          <h3>Admin Quick Panel</h3>
+          <div class="sidebar-card">
+            <strong>Upload status</strong>
+            <p>When the admin dashboard is active, course uploads will show preview thumbnails and saved entries here.</p>
+          </div>
+          <div class="sidebar-card">
+            <strong>Tips</strong>
+            <ul class="sidebar-list">
+              <li>Choose a small thumbnail image for faster preview load.</li>
+              <li>Use MP4 video files for best compatibility.</li>
+              <li>Saved items remain in local storage until deleted.</li>
+            </ul>
+          </div>
+          <div class="sidebar-card">
+            <strong>Next Actions</strong>
+            <p>After upload, refresh the main site page to see the new course appear in the portfolio listing.</p>
+          </div>
+        </aside>
       </div>
     </div>
 
@@ -546,6 +660,17 @@
         return matchUser && password === ADMIN_CREDENTIALS.password;
       }
 
+      async function ensureFirebaseAuth() {
+        if (!firebase.auth) return;
+        const auth = firebase.auth();
+        if (auth.currentUser) return;
+        try {
+          await auth.signInAnonymously();
+        } catch (error) {
+          console.warn('Firebase anonymous auth failed:', error);
+        }
+      }
+
       async function getFirebaseStorage() {
         await loadFirebaseConfig();
         if (!window.firebase || !window.firebaseConfig) return null;
@@ -556,6 +681,7 @@
             console.warn('Firebase init skipped:', error);
           }
         }
+        await ensureFirebaseAuth();
         return firebase.storage();
       }
 
