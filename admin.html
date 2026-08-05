@@ -8,15 +8,26 @@
     <link rel="stylesheet" href="/assets/css/style.css" />
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script src="/firebase-config.js"></script>
     <script>
-      async function loadFirebaseConfig() {
+      window.firebaseConfigPromise = (async () => {
         try {
           const res = await fetch('/api/firebase-config');
           if (!res.ok) throw new Error(`Config fetch failed: ${res.status}`);
-          window.firebaseConfig = await res.json();
+          const json = await res.json();
+          if (json?.error) throw new Error(json.error);
+          return json;
         } catch (error) {
           console.error('Firebase config load failed:', error);
-          window.firebaseConfig = null;
+          return window.firebaseConfig || null;
+        }
+      })();
+
+      async function loadFirebaseConfig() {
+        const config = await window.firebaseConfigPromise;
+        window.firebaseConfig = window.firebaseConfig || config;
+        if (!window.firebaseConfig) {
+          console.warn('Firebase config is unavailable. Check environment variables on the server or firebase-config.js fallback.');
         }
       }
       loadFirebaseConfig();
@@ -418,8 +429,10 @@
 
       function getStoredCourses() {
         try {
-          return JSON.parse(localStorage.getItem(COURSE_STORAGE_KEY) || '[]');
-        } catch {
+          const saved = localStorage.getItem(COURSE_STORAGE_KEY) || sessionStorage.getItem(COURSE_STORAGE_KEY);
+          return JSON.parse(saved || '[]');
+        } catch (error) {
+          console.warn('Reading stored courses failed, falling back to empty list:', error);
           return [];
         }
       }
@@ -427,7 +440,20 @@
       function saveCourseItem(item) {
         const courses = getStoredCourses();
         courses.unshift(item);
-        localStorage.setItem(COURSE_STORAGE_KEY, JSON.stringify(courses));
+
+        try {
+          localStorage.setItem(COURSE_STORAGE_KEY, JSON.stringify(courses));
+          return true;
+        } catch (error) {
+          console.warn('localStorage save failed, trying sessionStorage:', error);
+          try {
+            sessionStorage.setItem(COURSE_STORAGE_KEY, JSON.stringify(courses));
+            return true;
+          } catch (innerError) {
+            console.error('Saving course locally failed:', innerError);
+            return false;
+          }
+        }
       }
 
       function openCourseDB() {
@@ -520,7 +546,8 @@
         return matchUser && password === ADMIN_CREDENTIALS.password;
       }
 
-      function getFirebaseStorage() {
+      async function getFirebaseStorage() {
+        await loadFirebaseConfig();
         if (!window.firebase || !window.firebaseConfig) return null;
         if (!firebase.apps.length) {
           try {
@@ -533,7 +560,7 @@
       }
 
       async function uploadFileToFirebase(file, path) {
-        const storage = getFirebaseStorage();
+        const storage = await getFirebaseStorage();
         if (!storage) {
           throw new Error('Firebase configuration is missing or Firebase SDK not loaded.');
         }
@@ -638,6 +665,9 @@
           savedAt: new Date().toISOString()
         };
 
+        let firebaseUploadFailed = false;
+        let localSaveFailed = false;
+
         try {
           if (thumb) {
             const thumbPath = `course-media/${id}/thumb-${Date.now()}-${thumb.name}`;
@@ -648,14 +678,34 @@
             item.videoUrl = await uploadFileToFirebase(video, videoPath);
             item.lessons[0].videoUrl = item.videoUrl;
           }
-          if (thumb) await saveMediaBlob(thumbKey, thumb);
-          if (video) await saveMediaBlob(videoKey, video);
-          saveCourseItem(item);
-          updateUploadList();
-          showMessage(uploadStatus, 'Course saved locally and uploaded to Firebase. It will appear on the main page after refresh.', true);
         } catch (error) {
+          firebaseUploadFailed = true;
+          console.warn('Firebase upload failed:', error);
+        }
+
+        try {
+          if (thumb) await saveMediaBlob(thumbKey, thumb).catch(err => {
+            console.warn('Saving thumb blob failed:', err);
+          });
+          if (video) await saveMediaBlob(videoKey, video).catch(err => {
+            console.warn('Saving video blob failed:', err);
+          });
+          const saved = saveCourseItem(item);
+          if (!saved) localSaveFailed = true;
+          else updateUploadList();
+        } catch (error) {
+          localSaveFailed = true;
+          console.error('Local save failed:', error);
+        }
+
+        if (!firebaseUploadFailed && !localSaveFailed) {
+          showMessage(uploadStatus, 'Course saved locally and uploaded to Firebase. It will appear on the main page after refresh.', true);
+        } else if (firebaseUploadFailed && !localSaveFailed) {
+          showMessage(uploadStatus, 'Saved locally, but Firebase upload failed. Check console for details.', false);
+        } else if (!firebaseUploadFailed && localSaveFailed) {
+          showMessage(uploadStatus, 'Uploaded to Firebase, but local save failed. Check console for details.', false);
+        } else {
           showMessage(uploadStatus, 'Unable to upload to Firebase or save files locally. Try again.', false);
-          console.error('Media upload failed', error);
         }
 
         if (currentThumbUrl) {
