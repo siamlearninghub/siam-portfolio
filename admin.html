@@ -8,7 +8,19 @@
     <link rel="stylesheet" href="/assets/css/style.css" />
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-    <script src="/firebase-config.js"></script>
+    <script>
+      async function loadFirebaseConfig() {
+        try {
+          const res = await fetch('/api/firebase-config');
+          if (!res.ok) throw new Error(`Config fetch failed: ${res.status}`);
+          window.firebaseConfig = await res.json();
+        } catch (error) {
+          console.error('Firebase config load failed:', error);
+          window.firebaseConfig = null;
+        }
+      }
+      loadFirebaseConfig();
+    </script>
     <style>
       body {
         min-height: 100vh;

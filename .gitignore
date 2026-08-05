@@ -1,0 +1,2 @@
+# Ignore generated Firebase client config so API keys are not stored in the repo
+/firebase-config.js
