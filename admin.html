@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Admin — Siam Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <style>
       body {
         min-height: 100vh;
@@ -504,6 +507,28 @@
         return matchUser && password === ADMIN_CREDENTIALS.password;
       }
 
+      function getFirebaseStorage() {
+        if (!window.firebase || !window.firebaseConfig) return null;
+        if (!firebase.apps.length) {
+          try {
+            firebase.initializeApp(window.firebaseConfig);
+          } catch (error) {
+            console.warn('Firebase init skipped:', error);
+          }
+        }
+        return firebase.storage();
+      }
+
+      async function uploadFileToFirebase(file, path) {
+        const storage = getFirebaseStorage();
+        if (!storage) {
+          throw new Error('Firebase configuration is missing or Firebase SDK not loaded.');
+        }
+        const storageRef = storage.ref(path);
+        const snapshot = await storageRef.put(file);
+        return await snapshot.ref.getDownloadURL();
+      }
+
       loginBtn.addEventListener('click', () => {
         const identifier = document.getElementById('loginIdentifier').value;
         const password = document.getElementById('loginPassword').value;
@@ -575,6 +600,8 @@
           videoName: video?.name || '',
           thumbKey,
           videoKey,
+          thumbUrl: '',
+          videoUrl: '',
           moduleTitle: `${title} Module`,
           lessons: [{
             id: lessonId,
@@ -583,7 +610,8 @@
             notes: lessonNotes || 'New lesson uploaded from the admin panel.',
             resources,
             videoKey,
-            videoName: video?.name || ''
+            videoName: video?.name || '',
+            videoUrl: ''
           }],
           modules: [{
             id: `${id}-module-1`,
@@ -598,14 +626,23 @@
         };
 
         try {
+          if (thumb) {
+            const thumbPath = `course-media/${id}/thumb-${Date.now()}-${thumb.name}`;
+            item.thumbUrl = await uploadFileToFirebase(thumb, thumbPath);
+          }
+          if (video) {
+            const videoPath = `course-media/${id}/video-${Date.now()}-${video.name}`;
+            item.videoUrl = await uploadFileToFirebase(video, videoPath);
+            item.lessons[0].videoUrl = item.videoUrl;
+          }
           if (thumb) await saveMediaBlob(thumbKey, thumb);
           if (video) await saveMediaBlob(videoKey, video);
           saveCourseItem(item);
           updateUploadList();
-          showMessage(uploadStatus, 'Course saved locally. It will appear on the main page after refresh.', true);
+          showMessage(uploadStatus, 'Course saved locally and uploaded to Firebase. It will appear on the main page after refresh.', true);
         } catch (error) {
-          showMessage(uploadStatus, 'Unable to save files in browser storage. Use smaller files or refresh.', false);
-          console.error('Media save failed', error);
+          showMessage(uploadStatus, 'Unable to upload to Firebase or save files locally. Try again.', false);
+          console.error('Media upload failed', error);
         }
 
         if (currentThumbUrl) {

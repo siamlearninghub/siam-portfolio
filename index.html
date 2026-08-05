@@ -3,14 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CodeWithSiam</title>
+    <meta name="description" content="Official portfolio of Md Siam Ahmmed. AI Engineer, Full Stack Developer, Machine Learning Engineer, and Data Science enthusiast building modern web applications and AI projects." />
+    <meta name="keywords" content="CodeWithSiam, Md Siam Ahmmed, AI Engineer, Full Stack Developer, Python Developer, Machine Learning, Data Science, Portfolio">
+    <meta name="author" content="Md Siam Ahmmed">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0f172a">
+    <title>CodeWithSiam | AI Engineer, Full Stack Developer & Data Scientist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" href="tab.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="icon" type="image/png" href="assets/images/tab.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -27,16 +33,16 @@
 
       <div class="lock-split">
         <div class="lock-photo-side">
-          <img src="py.jpg" alt="Md Siam Ahmmed" />
+          <img src="assets/images/py.jpg" alt="Md Siam Ahmmed" />
           <div class="lock-photo-overlay">
-            <span class="lock-photo-tag">Siam.dev</span>
-            <p>Private portfolio &amp; course access</p>
+            <span class="lock-photo-tag">CodeWithSiam</span>
+            <p>Building AI, Full Stack & Machine Learning Solutions</p>
           </div>
         </div>
 
         <div class="lock-card">
-        <h2>Welcome Back</h2>
-        <p>Sign in to view this portfolio.</p>
+        <h2>Welcome to CodeWithSiam</h2>
+        <p>Sign in to access your dashboard and exclusive learning resources.</p>
 
         <div class="auth-switch" role="tablist" aria-label="Authentication mode">
           <button class="auth-tab active" id="showLoginTab" type="button">
@@ -49,80 +55,91 @@
 
         <div id="loginFormPanel" class="auth-panel">
           <div class="lock-field">
-            <label for="lockUser">Email or Username</label>
-            <input
-              type="text"
-              id="lockUser"
-              placeholder="Enter your email or username"
-              autocomplete="email"
-            />
+            <label for="lockUser">Email</label>
+              <input
+                type="email"
+                id="lockUser"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              />
           </div>
           <div class="lock-field">
             <label for="lockInput">Password</label>
-            <input
-              type="password"
-              id="lockInput"
-              placeholder="Enter your password"
-              autocomplete="current-password"
-            />
+          <input
+            type="password"
+            id="lockInput"
+            name="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
           </div>
 
           <label class="lock-remember">
-            <input type="checkbox" id="lockRemember" checked />
-            <span>Remember me</span>
+          <input type="checkbox" id="lockRemember" />            <span>Remember me</span>
           </label>
 
-          <button id="lockBtn" type="button">Sign In</button>
-        </div>
+        <button id="lockBtn" type="button">Sign In</button>
 
-        <div id="registerFormPanel" class="auth-panel hidden">
-          <div class="lock-field">
-            <label for="registerName">Full Name</label>
-            <input
-              type="text"
-              id="registerName"
-              placeholder="Enter your full name"
-              autocomplete="name"
-            />
-          </div>
-          <div class="lock-field">
-            <label for="registerEmail">Email</label>
-            <input
-              type="email"
-              id="registerEmail"
-              placeholder="Enter your email"
-              autocomplete="email"
-            />
-          </div>
-          <div class="lock-field">
-            <label for="registerPhone">Phone Number</label>
-            <input
-              type="tel"
-              id="registerPhone"
-              placeholder="Enter your phone number"
-              autocomplete="tel"
-            />
-          </div>
-          <div class="lock-field">
-            <label for="registerPass">Password</label>
-            <input
-              type="password"
-              id="registerPass"
-              placeholder="Create a password"
-              autocomplete="new-password"
-            />
-          </div>
-          <div class="lock-field">
-            <label for="registerConfirm">Confirm Password</label>
-            <input
-              type="password"
-              id="registerConfirm"
-              placeholder="Repeat your password"
-              autocomplete="new-password"
-            />
-          </div>
-          <button id="registerBtn" type="button">Send OTP</button>
-        </div>
+    </div>
+
+    <div id="registerFormPanel" class="auth-panel hidden">
+
+      <div class="lock-field">
+      <label for="registerName">Full Name</label>
+        <input
+          type="text"
+          id="registerName"
+          placeholder="Enter your full name"
+          autocomplete="name"
+          />
+    </div>
+
+  <div class="lock-field">
+    <label for="registerEmail">Email</label>
+    <input
+      type="email"
+      id="registerEmail"
+      placeholder="Enter your email"
+      autocomplete="email"
+    />
+  </div>
+
+  <div class="lock-field">
+    <label for="registerPhone">Phone Number</label>
+    <input
+      type="tel"
+      id="registerPhone"
+      placeholder="Enter your phone number"
+      autocomplete="tel"
+    />
+  </div>
+
+  <div class="lock-field">
+    <label for="registerPass">Password</label>
+    <input
+      type="password"
+      id="registerPass"
+      placeholder="Create a password"
+      autocomplete="new-password"
+    />
+  </div>
+
+  <div class="lock-field">
+    <label for="registerConfirm">Confirm Password</label>
+    <input
+      type="password"
+      id="registerConfirm"
+      placeholder="Repeat your password"
+      autocomplete="new-password"
+    />
+  </div>
+
+  <button id="registerBtn" type="button">Send OTP</button>
+
+      </div>
 
         <div id="otpPanel" class="auth-panel hidden">
           <div class="lock-field">
@@ -213,7 +230,6 @@
           <a href="#course">Free Course</a>
           <a href="#chatbot">AI Chat</a>
           <a href="#contact">Contact</a>
-          <a href="admin.html">Admin</a>
         </nav>
         <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
           &#9776;
@@ -225,7 +241,7 @@
         <div class="hero-bg-grid"></div>
         <div class="hero-inner">
           <div class="hero-content reveal">
-            <p class="hero-eyebrow">Narsingdi Government College &middot; Class 12,Science Background</p>
+            <p class="hero-eyebrow">Narsingdi Government College &middot; Class 12,Science</p>
             <h1>Md Siam Ahmmed</h1>
             <div class="typed-wrap">
               <span class="typed-prefix">&gt;</span>
@@ -252,17 +268,17 @@
               </div>
               <div class="ide-body">
                 <pre class="ide-code"><span class="ln">1</span><span class="tok-kw">class</span> <span class="tok-class">Siam</span><span class="tok-punc">:</span>
-<span class="ln">2</span>    <span class="tok-kw">def</span> <span class="tok-fn">__init__</span><span class="tok-punc">(</span><span class="tok-self">self</span><span class="tok-punc">):</span>
-<span class="ln">3</span>        <span class="tok-self">self</span>.role <span class="tok-punc">=</span> <span class="tok-str">"AI Engineer,And Data Scientist"</span>
-<span class="ln">4</span>        <span class="tok-self">self</span>.stack <span class="tok-punc">=</span> <span class="tok-punc">[</span><span class="tok-str">"Python"</span><span class="tok-punc">,</span> <span class="tok-str">"TensorFlow"</span><span class="tok-punc">,</span>
-<span class="ln"></span>                      <span class="tok-str">"PyTorch"</span><span class="tok-punc">,</span> <span class="tok-str">"OpenCV"</span><span class="tok-punc">]</span>
-<span class="ln">5</span>        <span class="tok-self">self</span>.based_in <span class="tok-punc">=</span> <span class="tok-str">"Bancharampur,Brahmanbaira"<Bangladesh"</span>
+                  <span class="ln">2</span>    <span class="tok-kw">def</span> <span class="tok-fn">__init__</span><span class="tok-punc">(</span><span class="tok-self">self</span><span class="tok-punc">):</span>
+                  <span class="ln">3</span>        <span class="tok-self">self</span>.role <span class="tok-punc">=</span> <span class="tok-str">"AI Engineer,And Data Scientist"</span>
+                  <span class="ln">4</span>        <span class="tok-self">self</span>.stack <span class="tok-punc">=</span> <span class="tok-punc">[</span><span class="tok-str">"Python"</span><span class="tok-punc">,</span> <span class="tok-str">"TensorFlow"</span><span class="tok-punc">,</span>
+                  <span class="ln"></span>                      <span class="tok-str">"PyTorch"</span><span class="tok-punc">,</span> <span class="tok-str">"OpenCV"</span><span class="tok-punc">]</span>
+                  <span class="ln">5</span>        <span class="tok-self">self</span>.based_in <span class="tok-punc">=</span> <span class="tok-str">"Bancharampur,Brahmanbaira"<Bangladesh"</span>
 
-<span class="ln">6</span>    <span class="tok-kw">def</span> <span class="tok-fn">teach</span><span class="tok-punc">(</span><span class="tok-self">self</span><span class="tok-punc">):</span>
-<span class="ln">7</span>        <span class="tok-kw">return</span> <span class="tok-str">"free ML tutorials on YouTube"</span></pre>
+                  <span class="ln">6</span>    <span class="tok-kw">def</span> <span class="tok-fn">teach</span><span class="tok-punc">(</span><span class="tok-self">self</span><span class="tok-punc">):</span>
+                  <span class="ln">7</span>        <span class="tok-kw">return</span> <span class="tok-str">"free ML tutorials on YouTube"</span></pre>
               </div>
               <div class="ide-webcam">
-                <img src="profile-siam.jpeg" alt="Md Siam Ahmmed" class="profile-img" />
+                <img src="assets/images/profile-siam.jpeg" alt="Md Siam Ahmmed" class="profile-img" />
                 <span class="ide-live-badge">&#9679; Available</span>
               </div>
             </div>
@@ -1011,7 +1027,6 @@
               </p>
               <div class="hero-actions">
                 <button type="button" class="btn btn-primary" id="continueLearningHeroBtn">Continue Learning</button>
-                <a href="admin.html" class="btn btn-outline">Manage Courses</a>
               </div>
             </div>
             <div class="course-hero-metrics">
@@ -1255,7 +1270,7 @@
   </p>
   <p class="footer-sub">Made with Python 🐍 &amp; passion for AI</p>
 </footer>
-</
+</div>
     <!-- /siteRoot -->
 
     <!-- Top-level chatbox (fixed) -->
@@ -1292,6 +1307,13 @@
       <span class="online-badge-small" aria-hidden="true"></span>
     </button>
 
-    <script src="script.js"></script>
+    <script>
+      const adminPath = window.location.pathname.replace(/\/+$/, '');
+      if (adminPath === '/admin') {
+        window.location.replace('admin.html');
+      }
+    </script>
+
+    <script src="assets/js/script.js"></script>
   </body>
 </html>
